@@ -142,6 +142,15 @@ etc.
 Leave `SELECT_ALGORITHM` as a placeholder for now — section 4 will have you
 set it after reading the benchmark results.
 
+The file can also be run standalone without the harness:
+`python solution.py --test` runs the full internal suite (correctness +
+benchmarks) directly.  The `--test` guard is used instead of
+`if __name__ == "__main__":` because Codility's loading mechanism is not
+guaranteed to set `__name__` correctly for the solution file.
+
+Test output is directed to `stderr`, not `stdout`.  On Codility, `stdout` is
+the channel that captures the return value; test noise there would corrupt it.
+
 ```python
 # --- Entry point ---
 
@@ -149,6 +158,16 @@ RUN_TESTS = True
 
 # <reasoning will go here after benchmarks are read — see section 4>
 SELECT_ALGORITHM = "<first algorithm name as temporary placeholder>"
+
+
+def run_tests():
+    suite = unittest.TestSuite()
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestSolution))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(BenchmarkSolution))
+    result = unittest.TextTestRunner(verbosity=2, stream=sys.stderr).run(suite)
+    if not result.wasSuccessful():
+        raise RuntimeError("Unit tests failed")
+
 
 def solution(<params>):
     """Codility entry point.  Flip RUN_TESTS to False before submitting.
@@ -158,13 +177,12 @@ def solution(<params>):
     __main__ tests and calling sys.exit().
     """
     if RUN_TESTS:
-        suite = unittest.TestSuite()
-        suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestSolution))
-        suite.addTests(unittest.TestLoader().loadTestsFromTestCase(BenchmarkSolution))
-        result = unittest.TextTestRunner(verbosity=2, stream=sys.stdout).run(suite)
-        if not result.wasSuccessful():
-            raise RuntimeError("Unit tests failed")
+        run_tests()
     return ALGORITHMS[SELECT_ALGORITHM](<params>)
+
+
+if "--test" in sys.argv:
+    run_tests()
 ```
 
 ---
