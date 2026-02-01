@@ -20,7 +20,9 @@ Create `/Users/ben/dev/codility/<slug>/` and put both files inside it.
 
 ## 2. solution.py
 
-Sections must appear in this order.
+Sections must appear in this order.  Section headers are brief
+`# --- Name ---` lines for scanning.  Substantive documentation (complexity,
+approach) goes in docstrings.
 
 ### 2a. Imports
 
@@ -39,14 +41,17 @@ packages.**  `sys`, `time`, `unittest`, `random`, `collections`, `itertools`,
 
 ### 2b. Algorithm implementations
 
-Write **at least 2, ideally 3** distinct approaches.  Each one is preceded by:
+Write **at least 2, ideally 3** distinct approaches.  Each one uses a
+section header and a docstring:
 
-```
-# ---------------------------------------------------------------------------
-# Algorithm N: <Name>
-# O(?) time | O(?) space
-# <One sentence on the approach>
-# ---------------------------------------------------------------------------
+```python
+# --- Algorithm N: <Name> ---
+
+def solution_<name>(<params>):
+    """O(?) time | O(?) space
+
+    <One sentence on the approach>
+    """
 ```
 
 Rules:
@@ -67,6 +72,8 @@ ALGORITHMS = {
 
 ```python
 class TestSolution(unittest.TestCase):
+    """Every case is run against ALL algorithms via subTest."""
+
     def _check(self, <params>, expected):
         for name, fn in ALGORITHMS.items():
             with self.subTest(algorithm=name):
@@ -89,6 +96,8 @@ class TestSolution(unittest.TestCase):
 
 ```python
 class BenchmarkSolution(unittest.TestCase):
+    """Head-to-head timing on large inputs."""
+
     RUNS = 5                   # repetitions per case; report the min
 
     def _bench(self, label, <input>):
@@ -120,14 +129,7 @@ Leave `SELECT_ALGORITHM` as a placeholder for now — section 4 will have you
 set it after reading the benchmark results.
 
 ```python
-# ---------------------------------------------------------------------------
-# Codility calls this.  Tests run every invocation (~1 ms overhead) because
-# codility starts a fresh process per test case — no state survives between
-# calls.  We target TestSolution explicitly rather than using unittest.main(),
-# which would discover tests in __main__ (codility's harness, not this file)
-# and then call sys.exit().
-# Flip RUN_TESTS to False before submitting.
-# ---------------------------------------------------------------------------
+# --- Entry point ---
 
 RUN_TESTS = True
 
@@ -135,6 +137,12 @@ RUN_TESTS = True
 SELECT_ALGORITHM = "<first algorithm name as temporary placeholder>"
 
 def solution(<params>):
+    """Codility entry point.  Flip RUN_TESTS to False before submitting.
+
+    Tests run every invocation because codility starts a fresh process per
+    test case.  Uses TestLoader (not unittest.main) to avoid discovering
+    __main__ tests and calling sys.exit().
+    """
     if RUN_TESTS:
         suite = unittest.TestSuite()
         suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestSolution))
@@ -213,8 +221,8 @@ SELECT_ALGORITHM = "set"
 
 ### 4e. Final run
 
-Run `python runner.py` one more time to confirm everything still passes with
-the new selection.  You are done when the output is fully green.
+Run `python ../runner.py` one more time to confirm everything still passes
+with the new selection.  You are done when the output is fully green.
 
 ---
 
