@@ -32,6 +32,14 @@ scanning.  Substantive documentation (complexity, approach) goes in docstrings.
 
 ### 2a. Imports
 
+Open the file with a header comment crediting the infrastructure repo:
+
+```python
+# https://github.com/benhuckvale/codility-harness
+```
+
+Then the standard imports:
+
 ```python
 import sys
 import time
