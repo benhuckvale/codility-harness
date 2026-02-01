@@ -14,15 +14,29 @@ Expects two files in the current directory:
 import sys
 import os
 import time
+import inspect
 import unittest
 
-# solution.py and cases.py live in the solution directory (cwd), not here.
+# If a slug is given on the command line, chdir into that solution directory
+# (relative to this script's location).  Otherwise assume cwd is already there.
+if len(sys.argv) > 1:
+    os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), sys.argv[1]))
 sys.path.insert(0, os.getcwd())
 
 import solution as _sol
-_sol.RUN_TESTS = False          # keep it off during platform cases below
 from solution import solution
 from cases import CASES, perf_test
+
+_sol.RUN_TESTS = False          # must be off before main() calls solution()
+
+# If solution() declares multiple parameters (e.g. solution(S, P, Q)),
+# CASES stores inp as a tuple of those args.  _call unpacks automatically
+# so solution.py can keep its native Codility signature with no changes.
+_n_params = len(inspect.signature(solution).parameters)
+
+
+def _call(inp):
+    return solution(*inp) if _n_params > 1 else solution(inp)
 
 
 def run_internal_suite():
@@ -54,7 +68,7 @@ def main():
     for desc, inp, expected in CASES:
         try:
             start = time.perf_counter()
-            result = solution(inp)
+            result = _call(inp)
             elapsed = time.perf_counter() - start
 
             if result == expected:
