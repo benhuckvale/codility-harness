@@ -1,0 +1,31 @@
+[project]
+name = "codility"
+version = "0.1.0"
+requires-python = ">=3.10"
+
+[tool.pdm.dev-dependencies]
+dev = ["ruff>=0.4"]
+
+# ---------------------------------------------------------------------------
+# Solution runner shortcuts.  Add one line per solution when you scaffold it.
+# ---------------------------------------------------------------------------
+[tool.pdm.scripts]
+min-pos-int = "python runner.py min-pos-int"
+min-abs-sum = "python runner.py min-abs-sum"
+min-nucleotide-impact-factor = "python runner.py min-nucleotide-impact-factor"
+
+# Auto-discovers every <slug>/ that contains solution.py and runs it.
+test-all = {shell = "set -e; for d in */; do if [ -f \"$d/solution.py\" ]; then echo; echo \"=== ${d%/} ===\"; python runner.py \"${d%/}\"; fi; done"}
+
+lint     = "ruff check ."
+fmt      = "ruff format ."
+check    = {composite = ["lint", "test-all"]}
+
+# ---------------------------------------------------------------------------
+# Ruff — linter and formatter
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "W", "F"]

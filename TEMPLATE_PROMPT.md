@@ -16,13 +16,19 @@ Derive a slug from the problem title: lowercase, words joined by hyphens
 (e.g. "Min Avg Two Slice" → `min-avg-two-slice`).
 Create `/Users/ben/dev/codility/<slug>/` and put both files inside it.
 
+Add a one-line script entry to `pyproject.toml` under `[tool.pdm.scripts]`:
+
+```toml
+<slug> = "python runner.py <slug>"
+```
+
 ---
 
 ## 2. solution.py
 
-Sections must appear in this order.  Section headers are brief
-`# --- Name ---` lines for scanning.  Substantive documentation (complexity,
-approach) goes in docstrings.
+Sections must appear in this order.  Follow PEP 8 style (ruff enforces this
+at line-length 100).  Section headers are brief `# --- Name ---` lines for
+scanning.  Substantive documentation (complexity, approach) goes in docstrings.
 
 ### 2a. Imports
 
@@ -180,8 +186,7 @@ This is a loop.  Do not skip ahead.
 ### 4a. Run the runner
 
 ```
-cd /Users/ben/dev/codility/<slug>
-python ../runner.py
+pdm run <slug>
 ```
 
 ### 4b. If anything fails, fix and repeat
@@ -219,10 +224,11 @@ reasoning, citing specific benchmark numbers.  Example:
 SELECT_ALGORITHM = "set"
 ```
 
-### 4e. Final run
+### 4e. Lint and final run
 
-Run `python ../runner.py` one more time to confirm everything still passes
-with the new selection.  You are done when the output is fully green.
+Run `pdm run lint` and fix any violations.  Then run `pdm run <slug>` one more
+time to confirm everything still passes with the new selection.  You are done
+when both are fully green.
 
 ---
 
