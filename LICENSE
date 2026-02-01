@@ -1,0 +1,40 @@
+Copyright (c) 2026 Ben Huckvale
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the conditions below.
+
+THE ABOVE COPYRIGHT NOTICE AND THIS PERMISSION NOTICE SHALL BE INCLUDED IN ALL
+COPIES OR SUBSTANTIAL PORTIONS OF THE SOFTWARE.
+
+-------------------------------------------------------------------------------
+
+This project is infrastructure for structuring work on coding assessments —
+both manual and AI-assisted. The ideas, patterns, and general approach are
+freely available to study, learn from, and adapt.
+
+However, the value of this repo as evidence of capability lies in its author
+having designed and built it: the prompt engineering, the test harness, the
+benchmark-driven selection workflow. Someone who submits this infrastructure
+as-is — or with only superficial changes — as part of their own assessment
+would be misrepresenting the source of that effort. The scaffolding did not
+come from them.
+
+If you are using this repo in the context of a coding assessment or interview,
+the expectation is that you build your own harness, or at least that the
+harness you use reflects your own thinking. The solutions and test cases inside
+it are, by design, not checked in — they are yours to write. The infrastructure
+around them should be too.
+
+-------------------------------------------------------------------------------
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
