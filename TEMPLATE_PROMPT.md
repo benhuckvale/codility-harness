@@ -10,6 +10,18 @@ See `min-pos-int/` for a worked example of the scaffold in action.
 You are scaffolding a Codility solution.  Follow every instruction below
 exactly.  Do not improvise or skip sections.
 
+## 0. Algorithm sketch — stop before writing files
+
+Before touching any file, think through the problem and output:
+
+1. **Candidate algorithms** (2–3): name, time/space complexity, one-line approach.
+2. **Edge cases** that could break a naive implementation.
+3. **Your expected pick** and the worst-case complexity argument for it.
+
+**Output this list, then wait for confirmation before proceeding to Section 1.**
+
+---
+
 ## 1. Directory
 
 Derive a slug from the problem title: lowercase, words joined by hyphens
